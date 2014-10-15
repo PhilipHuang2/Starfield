@@ -1,15 +1,20 @@
-NormalParticle philip = new NormalParticle();
+NormalParticle [] philip = new NormalParticle[50];
 void setup()
 {
 	size(400,400);
 	background(0);
+	for (int i = 0; i < philip.length; ++i) {
+		philip[i] = new NormalParticle();
+	}
 }
 void draw()
 {
 	background(0);
-	philip.show();
-	philip.move();
-	philip.reWind();
+	for (int i = 0; i < philip.length; ++i) {
+		philip[i].show();
+	 	philip[i].move();
+	 	philip[i].reWind();
+	}
 }
 class NormalParticle
 {
