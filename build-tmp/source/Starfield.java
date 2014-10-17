@@ -14,10 +14,11 @@ import java.io.IOException;
 
 public class Starfield extends PApplet {
 
-NormalParticle [] philip = new NormalParticle[50];
+NormalParticle [] philip = new NormalParticle[100];
+OddballParticle peter = new OddballParticle();
 public void setup()
 {
-	size(400,400);
+	size(800,800);
 	background(0);
 	for (int i = 0; i < philip.length; ++i) 
 	{
@@ -28,6 +29,9 @@ public void setup()
 public void draw()
 {
 	background(0);
+	peter.move();
+	peter.show();
+	peter.reWind();
 	for (int i = 0; i < philip.length; ++i) 
 	{
 		
@@ -49,8 +53,8 @@ class NormalParticle
 			colour[a] = (int)(Math.random()*256);
 		}
  	 	
- 	 	posX = 200;
- 	 	posY = 200;
+ 	 	posX = 400;
+ 	 	posY = 400;
  	 	speed = (Math.random()*3 + 3   );
  	 	angle = (Math.random()*2*PI);
 
@@ -64,15 +68,15 @@ class NormalParticle
 	public void show()
 	{
 		fill(colour[0],colour[1],colour[2]);
-		ellipse((int)(posX),(int)(posY),10,10);
+		ellipse((int)(posX),(int)(posY),5,5);
 	}
 
 	public void reWind()
 	{
- 		if(Math.sqrt(Math.pow(posX-200,2) + Math.pow(posY-200,2)) >= 200)
+ 		if(Math.sqrt(Math.pow(posX-400,2) + Math.pow(posY-400,2)) >= 400)
  		{
- 			posX = 200;
- 			posY = 200;
+ 			posX = 400;
+ 			posY = 400;
  			angle = (Math.random()*2*PI);
  			for (int a = 0; a < colour.length; ++a) 
 		 	{
@@ -99,8 +103,8 @@ class OddballParticle
 		{
 			colour[a] = (int)(Math.random()*256);
 		}
-		posX = 200;
-		posY = 100;
+		posX = 400;
+		posY = 200;
 		speed = 4;
 		angle = Math.random()*2*PI;
 
@@ -115,7 +119,18 @@ class OddballParticle
 	public void show() 
 	{
 		fill(255);
-		ellipse((int)(posX),(int)(posY),20,20);
+		ellipse((int)(posX),(int)(posY),10,10);
+	}
+
+	public void reWind()
+	{
+ 		if(Math.sqrt(Math.pow(posX-400,2) + Math.pow(posY-400,2)) >= 400)
+ 		{
+ 			posX = 400;
+ 			posY = 200;
+ 			angle = (Math.random()*2*PI);
+
+ 		}
 	}
 }
 
