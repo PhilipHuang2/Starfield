@@ -14,13 +14,13 @@ import java.io.IOException;
 
 public class Starfield extends PApplet {
 
-NormalParticle [] philip = new NormalParticle[100];
-OddballParticle peter = new OddballParticle();
+Particle [] philip = new Particle[100];
 public void setup()
 {
 	size(800,800);
 	background(0);
-	for (int i = 0; i < philip.length; ++i) 
+	philip[0] = new OddballParticle();
+	for (int i = 1; i < philip.length; ++i) 
 	{
 	 	philip[i] = new NormalParticle();
 	}
@@ -29,9 +29,6 @@ public void setup()
 public void draw()
 {
 	background(0);
-	peter.move();
-	peter.show();
-	peter.reWind();
 	for (int i = 0; i < philip.length; ++i) 
 	{
 		
@@ -42,7 +39,7 @@ public void draw()
 	}
 }
 
-class NormalParticle
+class NormalParticle implements Particle
 {
 	int [] colour = new int[3];
 	double posX, posY, speed, angle;
@@ -90,36 +87,47 @@ class NormalParticle
 
 interface Particle
 {
-	//your code here
+	public void move();
+	public void show();
+	public void reWind();
 }
 
-class OddballParticle
+class OddballParticle implements Particle
 {
 	int [] colour = new int[3];
+	int siz;
 	double posX, posY, speed, angle;
 	OddballParticle()
 	{
- 		for (int a = 0; a < colour.length; ++a) 
+		for (int a = 0; a < colour.length; ++a) 
 		{
 			colour[a] = (int)(Math.random()*256);
 		}
-		posX = 400;
-		posY = 200;
-		speed = 4;
-		angle = Math.random()*2*PI;
-
+ 	 	
+ 	 	posX = 400;
+ 	 	posY = 400;
+ 	 	speed = (Math.random()*3 + 3);
+ 	 	angle = (Math.random()*2*PI);
+ 	 	siz = 10;
 	}
 
 	public void move() 
 	{
 		posX = posX + speed * Math.cos(angle);
 		posY = posY + speed * Math.sin(angle);
+		for (int a = 0; a < colour.length; ++a) 
+		{
+			colour[a] = (int)(Math.random()*256);
+		}
+
 	}
 
 	public void show() 
 	{
-		fill(255);
-		ellipse((int)(posX),(int)(posY),10,10);
+
+		fill(colour[0],colour[1],colour[2]);
+		ellipse((int)(posX),(int)(posY),siz,siz);
+		siz ++;
 	}
 
 	public void reWind()
@@ -127,11 +135,18 @@ class OddballParticle
  		if(Math.sqrt(Math.pow(posX-400,2) + Math.pow(posY-400,2)) >= 400)
  		{
  			posX = 400;
- 			posY = 200;
+ 			posY = 400;
+ 			siz = 10;
  			angle = (Math.random()*2*PI);
-
+ 			for (int a = 0; a < colour.length; ++a) 
+		 	{
+			 	colour[a] = (int)(Math.random()*256);
+		 	}
+ 	 	
  		}
-	}
+ 	}
+
+
 }
 
 
