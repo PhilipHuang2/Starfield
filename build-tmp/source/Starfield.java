@@ -20,7 +20,11 @@ public void setup()
 	size(800,800);
 	background(0);
 	philip[0] = new OddballParticle();
-	for (int i = 1; i < philip.length; ++i) 
+	for(int o = 1; o < 10; o++)
+	{
+ 	 	philip[o] = new JumboParticle();
+	}
+	for (int i = 10; i < philip.length; ++i) 
 	{
 	 	philip[i] = new NormalParticle();
 	}
@@ -31,17 +35,24 @@ public void draw()
 	background(0);
 	for (int i = 0; i < philip.length; ++i) 
 	{
-		
-	 	
 	 	philip[i].reWind();
 	 	philip[i].move();
 	 	philip[i].show();
 	}
 }
 
+interface Particle
+{
+	public void move();
+	public void show();
+	public void reWind();
+}
+
+
 class NormalParticle implements Particle
 {
 	int [] colour = new int[3];
+	int siz;
 	double posX, posY, speed, angle;
 	NormalParticle()
 	{
@@ -52,9 +63,9 @@ class NormalParticle implements Particle
  	 	
  	 	posX = 400;
  	 	posY = 400;
- 	 	speed = (Math.random()*3 + 3   );
+ 	 	speed = (Math.random()*3 + 3);
  	 	angle = (Math.random()*2*PI);
-
+ 		siz = 5;
 	}
 	public void move()
 	{
@@ -65,7 +76,7 @@ class NormalParticle implements Particle
 	public void show()
 	{
 		fill(colour[0],colour[1],colour[2]);
-		ellipse((int)(posX),(int)(posY),5,5);
+		ellipse((int)(posX),(int)(posY),siz,siz);
 	}
 
 	public void reWind()
@@ -83,13 +94,6 @@ class NormalParticle implements Particle
  		}
 	}
 
-}
-
-interface Particle
-{
-	public void move();
-	public void show();
-	public void reWind();
 }
 
 class OddballParticle implements Particle
@@ -145,8 +149,14 @@ class OddballParticle implements Particle
  	 	
  		}
  	}
+}
 
-
+class JumboParticle extends NormalParticle
+{
+ 	JumboParticle()
+ 	{
+ 	 	siz = 20;
+ 	}
 }
 
 
